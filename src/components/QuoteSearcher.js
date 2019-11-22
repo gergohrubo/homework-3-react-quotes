@@ -4,10 +4,12 @@ import Quote from './Quote'
 class QuoteSearcher extends Component {
   state = {
     quotes: [],
-    isTheDataHere: false
+    isItFetching: false,
+    searchKeyWord: ''
   }
-  componentDidMount() {
-    fetch('https://quote-garden.herokuapp.com/quotes/search/tree')
+  search = () => {
+    this.setState({ isItFetching: true })
+    fetch(`https://quote-garden.herokuapp.com/quotes/search/${this.state.searchKeyWord}`)
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -17,9 +19,12 @@ class QuoteSearcher extends Component {
               isLiked: 0
             }
           }),
-          isTheDataHere: true
+          isItFetching: false
         })
       })
+  }
+  handleOnChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value })
   }
   setLiked = (id, liked) => {
     this.setState({
@@ -34,13 +39,15 @@ class QuoteSearcher extends Component {
   render() {
     return (
       <div>
+        <input type="text" name="searchKeyWord" onChange={this.handleOnChange} value={this.state.searchKeyWord} />
+        <button onClick={this.search}>Search!</button>
         <h2>Liked: {this.state.quotes.reduce((sum, quote) => {
           return (quote.isLiked === 1) ? sum += 1 : sum
         }, 0)}
           /Disliked: {this.state.quotes.reduce((sum, quote) => {
             return (quote.isLiked === -1) ? sum += 1 : sum
           }, 0)}</h2>
-        {this.state.isTheDataHere && this.state.quotes.map(quote => {
+        {!this.state.isItFetching && this.state.quotes.map(quote => {
           return <Quote
             text={quote.quoteText}
             author={quote.quoteAuthor}
@@ -50,7 +57,7 @@ class QuoteSearcher extends Component {
             setLiked={this.setLiked}
           />
         })}
-        {!this.state.isTheDataHere && 'Loading...'}
+        {this.state.isItFetching && 'Loading...'}
       </div>
     );
   }
