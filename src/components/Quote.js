@@ -14,15 +14,15 @@ class Quote extends Component {
     return (
       <div>
         <p style={
-          this.state.isLiked === -1 ? { color: 'red' }
-            : this.state.isLiked ? { color: 'green' }
+          this.props.isLiked === -1 ? { color: 'red', 'text-decoration': 'line-through' }
+            : this.props.isLiked ? { color: 'green' }
               : { color: 'black' }
         }>
           {this.props.text}
         </p>
         <p className="inlineDisplay" style={
-          this.state.isLiked === -1 ? { color: 'red' }
-            : this.state.isLiked ? { color: 'green' }
+          this.props.isLiked === -1 ? { color: 'red', 'text-decoration': 'line-through' }
+            : this.props.isLiked ? { color: 'green' }
               : { color: 'black' }
         }>
           By: {this.props.author}

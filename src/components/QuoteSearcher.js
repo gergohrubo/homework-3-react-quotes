@@ -11,15 +11,41 @@ class QuoteSearcher extends Component {
       .then(res => res.json())
       .then(data => {
         this.setState({
-          quotes: data.results,
+          quotes: data.results.map(quote => {
+            return {
+              ...quote,
+              isLiked: 0
+            }
+          }),
           isTheDataHere: true
         })
       })
   }
+  setLiked = (id, liked) => {
+    console.log("hello!", id, liked);
+    // update local state so that the
+    //  quote with this id is liked
+    //  or not liked
+  }
   render() {
     return (
       <div>
-        {this.state.isTheDataHere && this.state.quotes.map(quote => <Quote text={quote.quoteText} author={quote.quoteAuthor} key={quote._id} />)}
+        <h2>Liked: {this.state.quotes.reduce((sum, quote) => {
+          return (quote.isLiked === 1) ? sum += 1 : sum
+        }, 0)}
+          /Disliked: {this.state.quotes.reduce((sum, quote) => {
+            return (quote.isLiked === -1) ? sum += 1 : sum
+          }, 0)}</h2>
+        {this.state.isTheDataHere && this.state.quotes.map(quote => {
+          return <Quote
+            text={quote.quoteText}
+            author={quote.quoteAuthor}
+            id={quote._id}
+            isLiked={quote.isLiked}
+            key={quote._id}
+            setLiked={this.setLiked}
+          />
+        })}
         {!this.state.isTheDataHere && 'Loading...'}
       </div>
     );
