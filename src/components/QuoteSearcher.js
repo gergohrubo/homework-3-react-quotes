@@ -22,10 +22,14 @@ class QuoteSearcher extends Component {
       })
   }
   setLiked = (id, liked) => {
-    console.log("hello!", id, liked);
-    // update local state so that the
-    //  quote with this id is liked
-    //  or not liked
+    this.setState({
+      quotes: this.state.quotes.map(quote => {
+        if (quote._id === id) {
+          quote.isLiked = liked
+        }
+        return quote
+      })
+    })
   }
   render() {
     return (

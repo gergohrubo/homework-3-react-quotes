@@ -7,28 +7,25 @@ class Quote extends Component {
     text: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
   };
-  state = {
-    isLiked: 0
-  }
   render() {
     return (
       <div>
         <p style={
-          this.props.isLiked === -1 ? { color: 'red', 'text-decoration': 'line-through' }
+          this.props.isLiked === -1 ? { color: 'red', 'textDecoration': 'line-through' }
             : this.props.isLiked ? { color: 'green' }
               : { color: 'black' }
         }>
           {this.props.text}
         </p>
         <p className="inlineDisplay" style={
-          this.props.isLiked === -1 ? { color: 'red', 'text-decoration': 'line-through' }
+          this.props.isLiked === -1 ? { color: 'red', 'textDecoration': 'line-through' }
             : this.props.isLiked ? { color: 'green' }
               : { color: 'black' }
         }>
           By: {this.props.author}
         </p>
-        <button onClick={() => this.setState({ isLiked: 1 })}>:)</button>
-        <button onClick={() => this.setState({ isLiked: -1 })}>:(</button>
+        <button onClick={() => this.props.setLiked(this.props.id, 1)}>:)</button>
+        <button onClick={() => this.props.setLiked(this.props.id, -1)}>:(</button>
       </div>
     );
   }
