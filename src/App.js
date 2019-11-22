@@ -6,8 +6,8 @@ import QuoteSearcher from './components/QuoteSearcher'
 function App() {
   return (
     <div className="App">
+      <h1>Quotes</h1>
       <QuoteSearcher />
-      <h1>hello</h1>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Quote from './Quote'
 
 class QuoteSearcher extends Component {
   state = {
@@ -23,7 +24,7 @@ class QuoteSearcher extends Component {
   render() {
     return (
       <div>
-
+        {this.state.quotes.map(quote => <Quote text={quote.quoteText} author={quote.quoteAuthor} />)}
       </div>
     );
   }
