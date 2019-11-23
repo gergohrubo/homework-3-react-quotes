@@ -65,7 +65,6 @@ class QuoteSearcher extends Component {
   render() {
     const authorArray = this.state.quotes.map(element => element["quoteAuthor"])
       .filter((element, index, array) => array.indexOf(element) === index)
-    console.log(authorArray)
     return (
       <div>
         <h2>Number of quotes: {this.state.quotes.length}, and number of distinct authors: {authorArray.length}</h2>
